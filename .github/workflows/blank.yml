@@ -26,8 +26,8 @@ jobs:
             - name: Configure AWS Credentials
               uses: aws-actions/configure-aws-credentials@v1
               with:
-                role-to-assume: batman20221126204059861600000001
-                aws-region: ca-central-1
+                role-to-assume: ${{ secrets.AWS_ARN }}
+                aws-region: ${{ secrets.AWS_REGION }}
             - name: Copy files to the test website with the AWS CLI
               run: |
                 aws s3 sync . s3://s3-bucket-456
