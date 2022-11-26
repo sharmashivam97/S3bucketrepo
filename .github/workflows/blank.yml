@@ -17,12 +17,17 @@ jobs:
             - name: GitHub checkout
               uses: actions/checkout@v2
 
-            - name: AWS
-              uses: aws-actions/configure-aws-credentials@master
+            # - name: AWS
+            #   uses: aws-actions/configure-aws-credentials@master
+            #   with:
+            #     aws-access-key-id: ${{ secrets.AWS_KEY }}
+            #     aws-secret-access-key: ${{ secrets.AWS_SECRET }}
+            #     aws-region: ${{ secrets.AWS_REGION }}
+            - name: Configure AWS Credentials
+              uses: aws-actions/configure-aws-credentials@v1
               with:
-                aws-access-key-id: ${{ secrets.AWS_KEY }}
-                aws-secret-access-key: ${{ secrets.AWS_SECRET }}
-                aws-region: ${{ secrets.AWS_REGION }}
+                role-to-assume: arn:aws:iam::700366089459:role/batman20221126204059861600000001
+                aws-region: ca-central-1
             - name: Copy files to the test website with the AWS CLI
               run: |
                 aws s3 sync . s3://s3-bucket-456
